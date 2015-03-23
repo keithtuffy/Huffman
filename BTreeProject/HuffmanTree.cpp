@@ -7,10 +7,16 @@ BinNode::BinNode(char dataToAdd){
 	left = right = NULL;
 }
 
+BinNode::BinNode(BinNode *lft, BinNode *rgt){
+
+}
+
 
 Huff::Huff(){}
 
-void Huff::fillQueue(char[])
+void Huff::fillQueue(char letters[], int size)
 {
-	//for 
+	for (int i = 0; i < size; i++){
+		q.push(letters[i]);
+	}
 }

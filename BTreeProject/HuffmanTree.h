@@ -20,10 +20,10 @@ private:
 class Huff{
 public :
 	Huff();
-	void fillQueue(char[]);
+	void fillQueue(char[], int size);
 
 private:
-	std::priority_queue<char> q;
+	std::priority_queue<BinNode> q;
 };
 
 
