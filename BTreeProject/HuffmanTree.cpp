@@ -3,6 +3,9 @@
 
 using namespace std;
 
+BinNode::BinNode(){}
+
+
 BinNode::BinNode(char dataToAdd, int frequency){
 	data = dataToAdd;
 	freq = frequency;
@@ -10,21 +13,37 @@ BinNode::BinNode(char dataToAdd, int frequency){
 }
 
 BinNode::BinNode(BinNode *lft, BinNode *rgt){
+	data = NULL;
+	freq = lft->freq + rgt->freq;
 
 }
 
 
 BinHeap::BinHeap(){}
 
-// 
+// build the binary heap
 void BinHeap::buildHeap()
 {
+	// takes everything from frequency table to priority queue
 	map<char, int> ::iterator p;
 	for (p = freqMap.begin(); p != freqMap.end(); p++)
 	{
 		BinNode *newNode = new BinNode(p->first, p->second);
 		heap.push(*newNode);
 	}
+	BinNode lft;
+	BinNode rgt;
+
+	while (heap.size() > 1){
+		lft = heap.top();
+		heap.pop();
+		rgt = heap.top();
+		heap.pop();
+		BinNode *newInsert = new BinNode(&lft, &rgt);
+		heap.push(*newInsert);
+	}
+
+
 }
 
 
@@ -48,8 +67,17 @@ void BinHeap::buildFreqTable(string phrase){
 
 	// test data went into freq map
 	map<char, int> ::iterator p;
+	
+	cout << "Test Freq Map" << endl;
 	for (p = freqMap.begin(); p != freqMap.end(); p++)
 	{
 		cout << p->first;
 	}
+	cout  << endl;
+}
+
+bool BinNode::operator <(const BinNode &rhs)const{
+	if (freq> rhs.freq)
+		return true;
+	return false;
 }
