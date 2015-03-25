@@ -31,13 +31,16 @@ void BinHeap::buildHeap()
 		BinNode *newNode = new BinNode(p->first, p->second);
 		heap.push(*newNode);
 	}
+	
 	BinNode lft;
 	BinNode rgt;
 
 	while (heap.size() > 1){
 		lft = heap.top();
+		cout << heap.top().data<< endl;
 		heap.pop();
 		rgt = heap.top();
+		cout << heap.top().data << endl;
 		heap.pop();
 		BinNode *newInsert = new BinNode(&lft, &rgt);
 		heap.push(*newInsert);
@@ -71,13 +74,14 @@ void BinHeap::buildFreqTable(string phrase){
 	cout << "Test Freq Map" << endl;
 	for (p = freqMap.begin(); p != freqMap.end(); p++)
 	{
-		cout << p->first;
+		cout << p->first << p->second;
 	}
 	cout  << endl;
 }
 
-bool BinNode::operator <(const BinNode &rhs)const{
-	if (freq> rhs.freq)
+
+bool CompareBinNode::operator()(BinNode& n1, BinNode& n2){
+	if (n2.freq < n1.freq)
 		return true;
 	return false;
 }

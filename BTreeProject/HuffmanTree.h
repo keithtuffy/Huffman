@@ -11,11 +11,11 @@ using namespace std;
 // x00102013
 class BinNode{
 	friend class BinHeap;
+	friend class CompareBinNode;
 public:
 	BinNode();
 	BinNode(char, int);
 	BinNode(BinNode *lft, BinNode *rgt);
-	bool operator <(const BinNode &rhs)const;
 private:
 	char data;
 	int freq;
@@ -24,7 +24,10 @@ private:
 	BinNode *right;
 };
 
-
+class CompareBinNode{
+public:
+	bool operator()(BinNode& n1, BinNode& n2);
+};
 
 class BinHeap{
 	
@@ -35,7 +38,7 @@ public :
 	
 private:
 	BinNode *root;
-	std::priority_queue<BinNode> heap;
+	std::priority_queue<BinNode, vector<BinNode>,CompareBinNode > heap;
 	map<char, int> freqMap; // get letters and frequency
 
 
