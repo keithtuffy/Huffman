@@ -19,7 +19,9 @@ BinNode::BinNode(BinNode *lft, BinNode *rgt){
 }
 
 
-BinHeap::BinHeap(){}
+BinHeap::BinHeap(){
+	
+}
 
 // build the binary heap
 void BinHeap::buildHeap()
@@ -45,7 +47,8 @@ void BinHeap::buildHeap()
 		BinNode *newInsert = new BinNode(&lft, &rgt);
 		heap.push(*newInsert);
 	}
-
+	root = &heap.top(); /// save the root node of the tree
+	heap.pop(); // take the tree off the queue
 
 }
 

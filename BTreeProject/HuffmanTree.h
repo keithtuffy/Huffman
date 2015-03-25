@@ -35,6 +35,7 @@ public :
 	BinHeap();
 	void buildHeap();
 	void buildFreqTable(string phrase);
+	void preOrderTraversal();
 	
 private:
 	BinNode *root;
