@@ -91,20 +91,27 @@ bool CompareBinNode::operator()(BinNode& n1, BinNode& n2){
 }
 
 void BinHeap::preOrderTraversal(){
+	cout << "here"<<endl;
 	if (!root){ // if the tree is empty
 		cout << "Tree id Empty" << endl;
 	}
 	else{
-		preOrderTraversal(root, NULL);
+		cout << "here";
+		//preOrderTraversal(root, NULL);
 	}
 }
 
-void BinHeap::preOrderTraversal(BinNode *ptr, int huffcode){
-	if (ptr)
+void BinHeap::preOrderTraversal(BinNode *ptr, string huffcode){
+	if (ptr !=NULL)
 	{
 		if (ptr->data == NULL){
-			preOrderTraversal(ptr->left, huffcode);
-			preOrderTraversal(ptr->right, huffcode);
+			
+			preOrderTraversal(ptr->left, huffcode + "0");
+			preOrderTraversal(ptr->right, huffcode+ "1");
+		}
+		else
+		{
+			huffMap.insert(pair<char, string>(ptr->data, huffcode));
 		}
 
 	}

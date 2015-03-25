@@ -36,7 +36,7 @@ public :
 	void buildHeap();
 	void buildFreqTable(string phrase);
 	void preOrderTraversal();
-	void preOrderTraversal(BinNode*, int);
+	void preOrderTraversal(BinNode*, string);
 	
 private:
 	BinNode *root;
