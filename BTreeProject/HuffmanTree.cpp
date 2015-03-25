@@ -12,8 +12,9 @@ BinNode::BinNode(char dataToAdd, int frequency){
 	left = right = root = NULL;
 }
 
-BinNode::BinNode(BinNode *lft, BinNode *rgt){
+BinNode::BinNode(BinNode *lft, BinNode *rgt,BinNode *parent){
 	data = NULL;
+	root = parent;
 	freq = lft->freq + rgt->freq;
 
 }
@@ -44,7 +45,7 @@ void BinHeap::buildHeap()
 		rgt = heap.top();
 		cout << heap.top().data << endl;
 		heap.pop();
-		BinNode *newInsert = new BinNode(&lft, &rgt);
+		BinNode *newInsert = new BinNode(&lft, &rgt, root);
 		heap.push(*newInsert);
 	}
 	root = &heap.top(); /// save the root node of the tree
@@ -87,4 +88,25 @@ bool CompareBinNode::operator()(BinNode& n1, BinNode& n2){
 	if (n2.freq < n1.freq)
 		return true;
 	return false;
+}
+
+void BinHeap::preOrderTraversal(){
+	if (!root){ // if the tree is empty
+		cout << "Tree id Empty" << endl;
+	}
+	else{
+		preOrderTraversal(root, NULL);
+	}
+}
+
+void BinHeap::preOrderTraversal(BinNode *ptr, int huffcode){
+	if (ptr)
+	{
+		if (ptr->data == NULL){
+			preOrderTraversal(ptr->left, huffcode);
+			preOrderTraversal(ptr->right, huffcode);
+		}
+
+	}
+
 }

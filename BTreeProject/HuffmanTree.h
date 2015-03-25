@@ -15,7 +15,7 @@ class BinNode{
 public:
 	BinNode();
 	BinNode(char, int);
-	BinNode(BinNode *lft, BinNode *rgt);
+	BinNode(BinNode *lft, BinNode *rgt, BinNode *parent);
 private:
 	char data;
 	int freq;
@@ -36,11 +36,13 @@ public :
 	void buildHeap();
 	void buildFreqTable(string phrase);
 	void preOrderTraversal();
+	void preOrderTraversal(BinNode*, int);
 	
 private:
 	BinNode *root;
 	std::priority_queue<BinNode, vector<BinNode>,CompareBinNode > heap;
 	map<char, int> freqMap; // get letters and frequency
+	map<char, string> huffMap;
 
 
 };
