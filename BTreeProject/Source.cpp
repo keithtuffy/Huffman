@@ -14,6 +14,7 @@ int main(){
 	test.preOrderTraversal();
 	test.writeHuffCodeToFile();
 	test.decodeHuffCode();
+	test.compressCode();
 	system("pause");
 	return 0;
 	

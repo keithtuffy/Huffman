@@ -42,7 +42,8 @@ public :
 	void getMessageToEncode();
 	void writeHuffCodeToFile();
 	void decodeHuffCode();
-	void BinHeap::decodeHuffCode(BinNode *, string direction);
+	void decodeHuffCode(BinNode *, string direction);
+	void compressCode();
 	
 private:
 	BinNode *root;
@@ -52,7 +53,7 @@ private:
 	ofstream decodedMessage;
 	string message;
 	string code;
-
+	
 
 
 };

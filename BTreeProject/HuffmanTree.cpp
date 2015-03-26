@@ -147,7 +147,6 @@ void BinHeap::writeHuffCodeToFile(){
 	map<char, string> ::iterator p;
 	ofstream huffmanCode;
 	huffmanCode.open("huffmanCode.txt");
-	string message = "hello";
 	
 	for (int i = 0; i < message.size(); i++){
 		huffmanCode << huffMap.find(message[i])->second;
@@ -207,10 +206,70 @@ void BinHeap::decodeHuffCode(BinNode *ptr,string direction){
 	
 
 }
-
+// get message to run program with
 void BinHeap::getMessageToEncode(){
 	ifstream originalMessage("originalMessage.txt");
 	while (getline(originalMessage, message)){
 		cout << "Original Message: " << message << endl;
 	}
+	originalMessage.close();
+}
+
+
+
+
+
+void BinHeap::compressCode(){
+	ifstream readHuffCode("huffmanCode.txt"); // take coded message
+	ofstream writeCompressCode("compressedCode.txt"); // write compressed message
+
+	string codeToCompress; // coded message put into a string
+	getline(readHuffCode, codeToCompress);
+
+	//////////////////loop start
+	
+	while (codeToCompress.size() > 0){
+		string charBinCode; // 8 bit charater code holder
+		int intBinCode; // takes the string and makes it an int to hold binary num
+		int intDecCode = 0; // holds the decimal num for binary code
+
+
+		// takes first 8 charaters from the coded message
+		if (codeToCompress.size() >= 8){
+			for (int j = 0; j < 8; j++){
+				charBinCode = charBinCode + codeToCompress[j];
+			}
+			codeToCompress.erase(0, 8); // erase 8 used chars(1s and 0s)
+		}
+		// when we reach the end of the codedfile and there is less than 8 chars left
+		else {
+			for (int j = 0; j < codeToCompress.size(); j++){
+				charBinCode = charBinCode + codeToCompress[j];
+			}
+			codeToCompress.erase(0, codeToCompress.size()); // erase last of used chars(1s and 0s)
+		}
+
+		// converts string binary code to an int
+		// based on http://www.cplusplus.com/forum/general/13135/
+		intBinCode = atoi(charBinCode.c_str());
+
+
+		//convert binary to decimal
+		for (int i = 0; intBinCode > 0; ++i)
+		{
+			if ((intBinCode % 10) == 1)
+				intDecCode += (1 << i);
+
+			intBinCode /= 10;
+		}
+
+		// the char is given the value of the letter 
+		//that equals to the decimal code passed to it
+		char compressedChar = intDecCode;
+		cout << compressedChar << intDecCode<<endl;
+		writeCompressCode << compressedChar; // write char to file
+	}
+
+	writeCompressCode.close();
+	readHuffCode.close();
 }
