@@ -2,12 +2,14 @@
 #include<string>
 #include <iostream>
 #include <map>
+
 using namespace std;
 
 
 int main(){
 	BinHeap test;
-	test.buildFreqTable("hello");
+	test.getMessageToEncode();
+	test.buildFreqTable();
 	test.buildHeap();
 	test.preOrderTraversal();
 	test.writeHuffCodeToFile();

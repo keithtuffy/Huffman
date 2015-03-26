@@ -7,6 +7,7 @@
 #include<deque>
 #include<map>
 #include<string>
+#include <fstream>
 using namespace std;
 // x00102013
 class BinNode{
@@ -35,9 +36,10 @@ class BinHeap{
 public :
 	BinHeap();
 	void buildHeap();
-	void buildFreqTable(string phrase);
+	void buildFreqTable();
 	void preOrderTraversal();
 	void preOrderTraversal(BinNode*, string); // gets huffman codes - recursive O(logn)
+	void getMessageToEncode();
 	void writeHuffCodeToFile();
 	void decodeHuffCode();
 	void BinHeap::decodeHuffCode(BinNode *, string direction);
@@ -47,6 +49,8 @@ private:
 	std::priority_queue<BinNode, vector<BinNode>,CompareBinNode > heap;
 	map<char, int> freqMap; // get letters and frequency
 	map<char, string> huffMap; // contains codes for each letter in tree
+	ofstream decodedMessage;
+	string message;
 	string code;
 
 

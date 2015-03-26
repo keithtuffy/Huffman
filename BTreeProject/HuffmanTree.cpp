@@ -70,19 +70,19 @@ void BinHeap::buildHeap()
 
 
 // build freqency table
-void BinHeap::buildFreqTable(string phrase){
+void BinHeap::buildFreqTable(){
 
-	for (int i = 0; i < phrase.length(); i++)
+	for (int i = 0; i < message.length(); i++)
 	{
 		// if char doesnt exist, add it to map
-		if (freqMap.find(phrase[i]) == freqMap.end())
+		if (freqMap.find(message[i]) == freqMap.end())
 		{
-			freqMap.insert(pair<char, int>(phrase[i], 1));
+			freqMap.insert(pair<char, int>(message[i], 1));
 		}
 		// if the char does exist, makes its frequency add 1
 		else
 		{
-			freqMap.find(phrase[i])->second++;
+			freqMap.find(message[i])->second++;
 		}
 	}
 
@@ -93,7 +93,7 @@ void BinHeap::buildFreqTable(string phrase){
 	cout << "Test Freq Map" << endl;
 	for (p = freqMap.begin(); p != freqMap.end(); p++)
 	{
-		cout << p->first << p->second;
+		cout << p->first << p->second << endl;
 	}
 	cout  << endl;
 }
@@ -110,7 +110,6 @@ void BinHeap::preOrderTraversal(){
 		cout << "Tree is Empty" << endl;
 	}
 	else{
-		cout << "here"<<endl;
 		preOrderTraversal(root, "");
 
 		// test data went into freq map
@@ -159,21 +158,24 @@ void BinHeap::writeHuffCodeToFile(){
 
 void BinHeap::decodeHuffCode(){
 	ifstream readHuffCode("huffmanCode.txt");
-	// gets the huffman codeand puts it into a string
+	// gets the huffman code and puts it into a string
 	while (getline(readHuffCode, code)){
-		cout << "read in coded file: " <<code << endl;
+		cout << "Huffman Code from file: " <<code << endl << endl;
 	}
+	readHuffCode.close();
 
-	cout << "Decode Huffman" << endl;
+	cout << "Decoded Huffman message: ";
+	decodedMessage.open("decodedMessage.txt");
 	// traverse the tree, 0 for left and 1 for right untilla leaf is reached
 	if (!root){
-		cout << "Tree is empty" << endl;
+		cout << " Error: Tree is empty" << endl;
 	}
 	else
 	{
 		decodeHuffCode(root, code);
 	}
 	cout << endl;
+	decodedMessage.close();
 }
 
 void BinHeap::decodeHuffCode(BinNode *ptr,string direction){
@@ -190,6 +192,7 @@ void BinHeap::decodeHuffCode(BinNode *ptr,string direction){
 			
 		}
 		else if (ptr->data != NULL){
+			decodedMessage << ptr->data;
 			cout <<ptr->data;
 			decodeHuffCode(root, direction);
 		}
@@ -197,9 +200,17 @@ void BinHeap::decodeHuffCode(BinNode *ptr,string direction){
 		
 	}
 	else{
+		decodedMessage << ptr->data; // used for last char
 		cout << ptr->data; // prints last char
 	}
 	
 	
 
+}
+
+void BinHeap::getMessageToEncode(){
+	ifstream originalMessage("originalMessage.txt");
+	while (getline(originalMessage, message)){
+		cout << "Original Message: " << message << endl;
+	}
 }
