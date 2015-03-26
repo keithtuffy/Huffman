@@ -5,6 +5,21 @@ using namespace std;
 
 BinNode::BinNode(){}
 
+BinNode::BinNode(const BinNode& rhs){
+	if (rhs.left != NULL){
+		left = new BinNode();
+		left = rhs.left;
+	}
+	if (rhs.right != NULL){
+		right = new BinNode();
+		right = rhs.right;
+	}
+	data = rhs.data;
+	freq = rhs.freq;
+	root = rhs.root;
+
+}
+
 
 BinNode::BinNode(char dataToAdd, int frequency){
 	data = dataToAdd;
@@ -15,6 +30,8 @@ BinNode::BinNode(char dataToAdd, int frequency){
 BinNode::BinNode(BinNode *lft, BinNode *rgt,BinNode *parent){
 	data = NULL;
 	root = parent;
+	left = lft;
+	right = rgt;
 	freq = lft->freq + rgt->freq;
 
 }
@@ -34,18 +51,16 @@ void BinHeap::buildHeap()
 		BinNode *newNode = new BinNode(p->first, p->second);
 		heap.push(*newNode);
 	}
-	
-	BinNode lft;
-	BinNode rgt;
+
+
+	//pointer problem
 
 	while (heap.size() > 1){
-		lft = heap.top();
-		cout << heap.top().data<< endl;
+		BinNode *lft =new BinNode(heap.top());
 		heap.pop();
-		rgt = heap.top();
-		cout << heap.top().data << endl;
+		BinNode *rgt = new BinNode(heap.top());
 		heap.pop();
-		BinNode *newInsert = new BinNode(&lft, &rgt, root);
+		BinNode *newInsert = new BinNode(lft, rgt, root);
 		heap.push(*newInsert);
 	}
 	root = &heap.top(); /// save the root node of the tree
@@ -91,13 +106,23 @@ bool CompareBinNode::operator()(BinNode& n1, BinNode& n2){
 }
 
 void BinHeap::preOrderTraversal(){
-	cout << "here"<<endl;
 	if (!root){ // if the tree is empty
-		cout << "Tree id Empty" << endl;
+		cout << "Tree is Empty" << endl;
 	}
 	else{
-		cout << "here";
-		//preOrderTraversal(root, NULL);
+		cout << "here"<<endl;
+		preOrderTraversal(root, "");
+
+		// test data went into freq map
+		map<char, string> ::iterator p;
+
+		cout << "Test huff Map" << endl;
+		for (p = huffMap.begin(); p != huffMap.end(); p++)
+		{
+			cout << p->first << p->second<<endl;
+		}
+		cout << endl;
+		
 	}
 }
 

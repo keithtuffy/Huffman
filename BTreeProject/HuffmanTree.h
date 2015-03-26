@@ -14,6 +14,7 @@ class BinNode{
 	friend class CompareBinNode;
 public:
 	BinNode();
+	BinNode(const BinNode&);
 	BinNode(char, int);
 	BinNode(BinNode *lft, BinNode *rgt, BinNode *parent);
 private:

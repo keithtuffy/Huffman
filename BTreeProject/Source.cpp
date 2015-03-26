@@ -7,9 +7,9 @@ using namespace std;
 
 int main(){
 	BinHeap test;
-	test.buildFreqTable("hello there how are youaaaaaaa");
+	test.buildFreqTable("hello");
 	test.buildHeap();
-	test.preOrderTraversal();
+	//test.preOrderTraversal();
 	system("pause");
 	return 0;
 	
