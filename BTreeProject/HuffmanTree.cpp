@@ -1,6 +1,7 @@
 #include "HuffmanTree.h"
 #include<iostream>
 #include <fstream>
+#include<sstream>
 using namespace std;
 
 BinNode::BinNode(){}
@@ -272,4 +273,31 @@ void BinHeap::compressCode(){
 
 	writeCompressCode.close();
 	readHuffCode.close();
+}
+
+void BinHeap::decompressCode(){
+	ifstream readCompressedCode("compressedCode.txt"); // get compressed code
+	string compressedCode; // compressed message put into a string
+	getline(readCompressedCode, compressedCode);
+
+	string huffcodedMessage;
+	for (int i = 0; i < compressedCode.size(); i++){
+		int charCode = compressedCode[i]; // gets the decimal number for the char at each position
+		
+		// based on https://www.youtube.com/watch?v=qragerGfi7A
+		int charBinValue;
+		int placement=1;
+		while (charCode != 0){
+			int charBinValue = (charCode % 2) + placement;
+			charCode /= 2;
+			placement *= 10;
+
+			ostringstream oss; // append int to string huffcodedmessage
+			oss << charBinValue;
+			huffcodedMessage += oss.str();
+		}
+
+	}
+	cout << huffcodedMessage;
+	
 }

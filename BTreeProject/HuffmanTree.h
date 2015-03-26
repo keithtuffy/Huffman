@@ -44,6 +44,7 @@ public :
 	void decodeHuffCode();
 	void decodeHuffCode(BinNode *, string direction);
 	void compressCode();
+	void decompressCode();
 	
 private:
 	BinNode *root;

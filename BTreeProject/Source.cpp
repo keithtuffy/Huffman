@@ -15,6 +15,7 @@ int main(){
 	test.writeHuffCodeToFile();
 	test.decodeHuffCode();
 	test.compressCode();
+	test.decompressCode();
 	system("pause");
 	return 0;
 	
