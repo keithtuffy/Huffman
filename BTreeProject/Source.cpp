@@ -9,7 +9,7 @@ int main(){
 	BinHeap test;
 	test.buildFreqTable("hello");
 	test.buildHeap();
-	//test.preOrderTraversal();
+	test.preOrderTraversal();
 	system("pause");
 	return 0;
 	
