@@ -37,13 +37,18 @@ public :
 	void buildHeap();
 	void buildFreqTable(string phrase);
 	void preOrderTraversal();
-	void preOrderTraversal(BinNode*, string);
+	void preOrderTraversal(BinNode*, string); // gets huffman codes - recursive O(logn)
+	void writeHuffCodeToFile();
+	void decodeHuffCode();
+	void BinHeap::decodeHuffCode(BinNode *, string direction);
 	
 private:
 	BinNode *root;
 	std::priority_queue<BinNode, vector<BinNode>,CompareBinNode > heap;
 	map<char, int> freqMap; // get letters and frequency
-	map<char, string> huffMap;
+	map<char, string> huffMap; // contains codes for each letter in tree
+	string code;
+
 
 
 };

@@ -1,6 +1,6 @@
 #include "HuffmanTree.h"
 #include<iostream>
-
+#include <fstream>
 using namespace std;
 
 BinNode::BinNode(){}
@@ -125,7 +125,7 @@ void BinHeap::preOrderTraversal(){
 		
 	}
 }
-
+// this gets each letters huffman code
 void BinHeap::preOrderTraversal(BinNode *ptr, string huffcode){
 	if (ptr !=NULL)
 	{
@@ -140,5 +140,66 @@ void BinHeap::preOrderTraversal(BinNode *ptr, string huffcode){
 		}
 
 	}
+
+
+}
+
+void BinHeap::writeHuffCodeToFile(){
+	map<char, string> ::iterator p;
+	ofstream huffmanCode;
+	huffmanCode.open("huffmanCode.txt");
+	string message = "hello";
+	
+	for (int i = 0; i < message.size(); i++){
+		huffmanCode << huffMap.find(message[i])->second;
+
+	}
+	huffmanCode.close();
+}
+
+void BinHeap::decodeHuffCode(){
+	ifstream readHuffCode("huffmanCode.txt");
+	// gets the huffman codeand puts it into a string
+	while (getline(readHuffCode, code)){
+		cout << "read in coded file: " <<code << endl;
+	}
+
+	cout << "Decode Huffman" << endl;
+	// traverse the tree, 0 for left and 1 for right untilla leaf is reached
+	if (!root){
+		cout << "Tree is empty" << endl;
+	}
+	else
+	{
+		decodeHuffCode(root, code);
+	}
+	cout << endl;
+}
+
+void BinHeap::decodeHuffCode(BinNode *ptr,string direction){
+	if (direction.size() != 0 ){
+		if (ptr->data == NULL){
+			if (direction[0] == '0'){
+				direction.erase(direction.begin());
+				decodeHuffCode(ptr->left, direction);
+			}
+			else{
+				direction.erase(direction.begin());
+				decodeHuffCode(ptr->right, direction);
+			}
+			
+		}
+		else if (ptr->data != NULL){
+			cout <<ptr->data;
+			decodeHuffCode(root, direction);
+		}
+		
+		
+	}
+	else{
+		cout << ptr->data; // prints last char
+	}
+	
+	
 
 }

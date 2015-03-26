@@ -10,6 +10,8 @@ int main(){
 	test.buildFreqTable("hello");
 	test.buildHeap();
 	test.preOrderTraversal();
+	test.writeHuffCodeToFile();
+	test.decodeHuffCode();
 	system("pause");
 	return 0;
 	
