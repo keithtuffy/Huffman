@@ -1,3 +1,5 @@
+// student number - x00102013
+
 #include "HuffmanTree.h"
 #include<string>
 #include <iostream>
@@ -8,7 +10,7 @@ using namespace std;
 
 int main(){
 
-
+	cout << "                 Huffman Tree - x00102013" << endl << "                 -----------------------" << endl<<endl;
 	BinHeap test;
 	test.getMessageToEncode();
 	test.buildFreqTable();

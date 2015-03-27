@@ -1,3 +1,6 @@
+// student number - x00102013
+
+
 #ifndef HUFFMANTREE_H
 
 

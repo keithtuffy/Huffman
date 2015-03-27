@@ -1,3 +1,5 @@
+// student number - x00102013
+
 #include "HuffmanTree.h"
 #include<iostream>
 #include <fstream>
@@ -97,7 +99,7 @@ void BinHeap::buildFreqTable(){
 	// test data went into freq map
 	map<char, int> ::iterator p;
 	
-	cout << "Test Freq Map" << endl;
+	cout << "Test Freq Map" << endl << "----------------------- " << endl;
 	for (p = freqMap.begin(); p != freqMap.end(); p++)
 	{
 		cout << p->first << p->second << endl;
@@ -122,7 +124,7 @@ void BinHeap::preOrderTraversal(){
 		// test data went into freq map
 		map<char, string> ::iterator p;
 
-		cout << "Test huff Map" << endl;
+		cout << "Test Huff Map" << endl << "-----------------------" << endl;
 		for (p = huffMap.begin(); p != huffMap.end(); p++)
 		{
 			cout << p->first << p->second<<endl;
@@ -165,12 +167,12 @@ void BinHeap::writeHuffCodeToFile(){
 void BinHeap::decodeHuffCode(){
 	ifstream readHuffCode("huffmanCode.txt");
 	// gets the huffman code and puts it into a string
-	while (getline(readHuffCode, code)){
-		cout << "Huffman Code from file: " <<code << endl << endl;
-	}
+	getline(readHuffCode, code);
+	cout << "Huffman Code from file " << endl << "-----------------------" << endl <<code << endl << endl;
+	
 	readHuffCode.close();
 
-	cout << "Decoded Huffman message: ";
+	cout << "Decoded Huffman Message" << endl << "-----------------------" << endl;
 	decodedMessage.open("decodedMessage.txt");
 	// traverse the tree, 0 for left and 1 for right untilla leaf is reached
 	if (!root){
@@ -180,7 +182,7 @@ void BinHeap::decodeHuffCode(){
 	{
 		decodeHuffCode(root, code);
 	}
-	cout << endl;
+	cout << endl<<endl;
 	decodedMessage.close();
 }
 
@@ -217,7 +219,7 @@ void BinHeap::decodeHuffCode(BinNode *ptr,string direction){
 void BinHeap::getMessageToEncode(){
 	ifstream originalMessage("originalMessage.txt");
 	while (getline(originalMessage, message)){
-		cout << "Original Message: " << message << endl;
+		cout << "Original Message " << endl << "-----------------------" << endl << message << endl << endl;
 	}
 	originalMessage.close();
 }
@@ -234,7 +236,7 @@ void BinHeap::compressCode(){
 	getline(readHuffCode, codeToCompress);
 
 	//////////////////loop start
-	
+	cout << "Compressed characters" << endl <<"-----------------------"<<endl;
 	while (codeToCompress.size() > 0){
 		string charBinCode; // 8 bit charater code holder
 		int intBinCode; // takes the string and makes it an int to hold binary num
@@ -357,11 +359,9 @@ void BinHeap::decompressCode(){
 		}
 	}
 
-
-	cout << "size:" << huffcodedMessage.size() << endl;
-	
-	cout << huffcodedMessage;
-	readCompressedCode.close();
+	cout << endl << "Decompressed Code:" << endl << "-----------------------"<<endl <<huffcodedMessage;
+	//cout << "size:" << huffcodedMessage.size() << endl;
+	readCompressedCode.close(); // close f stream
 	ofstream writeDecompressCode("decompressedCode.txt"); // write compressed message
 	writeDecompressCode << huffcodedMessage;
 	writeDecompressCode.close();
