@@ -65,6 +65,11 @@ void BinHeap::buildHeap()
 		BinNode *newInsert = new BinNode(lft, rgt, root);
 		heap.push(*newInsert);
 	}
+
+	//add eof
+	//BinNode *eof = new BinNode('-1', 1);
+	
+	
 	root = &heap.top(); /// save the root node of the tree
 	heap.pop(); // take the tree off the queue
 
@@ -276,6 +281,8 @@ void BinHeap::compressCode(){
 	readHuffCode.close();
 }
 
+
+
 void BinHeap::decompressCode(){
 	ifstream readCompressedCode("compressedCode.txt"); // get compressed code
 	string compressedCode; // compressed message put into a string
@@ -283,13 +290,14 @@ void BinHeap::decompressCode(){
 	string huffcodedMessage;
 
 	for (int i = 0; i < compressedCode.size(); i++){
+		
 		char decCode = compressedCode[i]; // gets the decimal number for the char at each position
 		int charCode = decCode;
 
 		int bin = 0, pos = 1;
 
 		//used for positive values 
-		if (charCode > 0){
+		if (charCode >= 0){
 			while (charCode > 0)
 			{
 				bin = bin + (charCode % 2) * pos;
@@ -297,13 +305,18 @@ void BinHeap::decompressCode(){
 				pos *= 10;
 
 			}
-			string temp = "0";
+			string temp;
+			if ((i + 1) < compressedCode.size()){
+				temp = "0";
+			}
 			ostringstream oss; // append int to string huffcodedmessage
 			oss << bin;
 			temp += oss.str();
 			
-			while (temp.size()< 8){ // if its not an 8 bit code
-				temp = "0" + temp;
+			if ((i+1) < compressedCode.size()){
+				while (temp.size() < 8){ // if its not an 8 bit code
+					temp = "0" + temp;
+				}
 			}
 
 			huffcodedMessage += temp;
@@ -320,19 +333,24 @@ void BinHeap::decompressCode(){
 
 			}
 			int bintemp = abs(bin);
-			string temp = "0";
+			string temp;
+			if ((i + 1) < compressedCode.size()){
+				temp = "0";
+			}
 			ostringstream oss; // append int to string huffcodedmessage
 			oss << bintemp;
 			temp += oss.str();
-			for (int i = 0; i < temp.size();i++){
-				if (temp[i] == '0')
-					temp[i] = '1';
+			for (int j = 0; j < temp.size();j++){
+				if (temp[j] == '0')
+					temp[j] = '1';
 				else
-					temp[i] = '0';
+					temp[j] = '0';
 			}
 
-			while (temp.size()< 8){
-				temp = "1" + temp;
+			if (i < compressedCode.size()){
+				while (temp.size() < 8){
+					temp = "1" + temp;
+				}
 			}
 			huffcodedMessage += temp;
 
