@@ -2,6 +2,7 @@
 #include<iostream>
 #include <fstream>
 #include<sstream>
+#include<cmath>
 using namespace std;
 
 BinNode::BinNode(){}
@@ -266,7 +267,7 @@ void BinHeap::compressCode(){
 
 		// the char is given the value of the letter 
 		//that equals to the decimal code passed to it
-		char compressedChar = intDecCode;
+		unsigned char compressedChar = intDecCode; // unsigned stops minus
 		cout << compressedChar << intDecCode<<endl;
 		writeCompressCode << compressedChar; // write char to file
 	}
@@ -281,23 +282,62 @@ void BinHeap::decompressCode(){
 	getline(readCompressedCode, compressedCode);
 
 	string huffcodedMessage;
-	for (int i = 0; i < compressedCode.size(); i++){
-		int charCode = compressedCode[i]; // gets the decimal number for the char at each position
-		
-		// based on https://www.youtube.com/watch?v=qragerGfi7A
-		int charBinValue;
-		int placement=1;
-		while (charCode != 0){
-			int charBinValue = (charCode % 2) + placement;
-			charCode /= 2;
-			placement *= 10;
+	cout << compressedCode[0];
 
+		char decCode = compressedCode[0]; // gets the decimal number for the char at each position
+		int charCode = decCode;
+		//cout << decCode;
+
+		int bin = 0, pos = 1;
+		
+		//used for positive values 
+		if (charCode > 0){
+			while (charCode > 0)
+			{
+				bin = bin + (charCode % 2) * pos;
+				charCode = charCode / 2;
+				pos *= 10;
+
+			}
+			huffcodedMessage = "0";
 			ostringstream oss; // append int to string huffcodedmessage
-			oss << charBinValue;
+			oss << bin;
 			huffcodedMessage += oss.str();
+			cout << huffcodedMessage;
 		}
 
-	}
+		//used for 2's complement when it is a minus 
+		else{
+			charCode = charCode + 1;
+			while (charCode < 0)
+			{
+				bin = bin + (charCode % 2) * pos;
+				charCode = charCode / 2;
+				pos *= 10;
+
+			}
+			int bintemp = abs(bin);
+			string temp = "0";
+			ostringstream oss; // append int to string huffcodedmessage
+			oss << bintemp;
+
+		}
+
+		
+
+
+		//while (charCode != 0){
+		//	int charBinValue = (charCode % 2);
+		//	charCode /= 2;
+		//	
+
+		//	ostringstream oss; // append int to string huffcodedmessage
+		//	oss << charBinValue;
+		//	huffcodedMessage += oss.str();
+		//}
+
+	
 	cout << huffcodedMessage;
 	
 }
+

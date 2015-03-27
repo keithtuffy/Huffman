@@ -7,6 +7,8 @@ using namespace std;
 
 
 int main(){
+
+
 	BinHeap test;
 	test.getMessageToEncode();
 	test.buildFreqTable();
