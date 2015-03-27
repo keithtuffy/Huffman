@@ -280,16 +280,14 @@ void BinHeap::decompressCode(){
 	ifstream readCompressedCode("compressedCode.txt"); // get compressed code
 	string compressedCode; // compressed message put into a string
 	getline(readCompressedCode, compressedCode);
-
 	string huffcodedMessage;
-	cout << compressedCode[0];
 
-		char decCode = compressedCode[0]; // gets the decimal number for the char at each position
+	for (int i = 0; i < compressedCode.size(); i++){
+		char decCode = compressedCode[i]; // gets the decimal number for the char at each position
 		int charCode = decCode;
-		//cout << decCode;
 
 		int bin = 0, pos = 1;
-		
+
 		//used for positive values 
 		if (charCode > 0){
 			while (charCode > 0)
@@ -299,11 +297,16 @@ void BinHeap::decompressCode(){
 				pos *= 10;
 
 			}
-			huffcodedMessage = "0";
+			string temp = "0";
 			ostringstream oss; // append int to string huffcodedmessage
 			oss << bin;
-			huffcodedMessage += oss.str();
-			cout << huffcodedMessage;
+			temp += oss.str();
+			
+			while (temp.size()< 8){ // if its not an 8 bit code
+				temp = "0" + temp;
+			}
+
+			huffcodedMessage += temp;
 		}
 
 		//used for 2's complement when it is a minus 
@@ -320,24 +323,30 @@ void BinHeap::decompressCode(){
 			string temp = "0";
 			ostringstream oss; // append int to string huffcodedmessage
 			oss << bintemp;
+			temp += oss.str();
+			for (int i = 0; i < temp.size();i++){
+				if (temp[i] == '0')
+					temp[i] = '1';
+				else
+					temp[i] = '0';
+			}
+
+			while (temp.size()< 8){
+				temp = "1" + temp;
+			}
+			huffcodedMessage += temp;
 
 		}
+	}
 
-		
 
-
-		//while (charCode != 0){
-		//	int charBinValue = (charCode % 2);
-		//	charCode /= 2;
-		//	
-
-		//	ostringstream oss; // append int to string huffcodedmessage
-		//	oss << charBinValue;
-		//	huffcodedMessage += oss.str();
-		//}
-
+	cout << "size:" << huffcodedMessage.size() << endl;
 	
 	cout << huffcodedMessage;
+	readCompressedCode.close();
+	ofstream writeDecompressCode("decompressedCode.txt"); // write compressed message
+	writeDecompressCode << huffcodedMessage;
+	writeDecompressCode.close();
 	
 }
 
