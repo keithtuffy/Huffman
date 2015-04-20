@@ -7,6 +7,15 @@
 #include<cmath>
 using namespace std;
 
+/***************************************************************************************
+*    Title: An In-Depth Look At Huffman Encoding
+*    Author: KYA via dreamincode.net
+*    Date: 31/3/2015
+*    Code version: n/a
+*    Availability: http://www.dreamincode.net/forums/blog/324/entry-3150-an-in-depth-look-at-huffman-encoding/
+*
+***************************************************************************************/
+//based on 
 BinNode::BinNode(){}
 
 BinNode::BinNode(const BinNode& rhs){
@@ -68,10 +77,6 @@ void BinHeap::buildHeap()
 		heap.push(*newInsert);
 	}
 
-	//add eof
-	//BinNode *eof = new BinNode('-1', 1);
-	
-	
 	root = &heap.top(); /// save the root node of the tree
 	heap.pop(); // take the tree off the queue
 
@@ -258,8 +263,15 @@ void BinHeap::compressCode(){
 			codeToCompress.erase(0, codeToCompress.size()); // erase last of used chars(1s and 0s)
 		}
 
+		/***************************************************************************************
+		*    Title: convert between std::string and int
+		*    Author: johnkravetzki
+		*    Date: 31/3/2015
+		*    Code version: n/a
+		*    Availability: http://www.cplusplus.com/forum/general/13135/
+		*
+		***************************************************************************************/
 		// converts string binary code to an int
-		// based on http://www.cplusplus.com/forum/general/13135/
 		intBinCode = atoi(charBinCode.c_str());
 
 
@@ -360,7 +372,6 @@ void BinHeap::decompressCode(){
 	}
 
 	cout << endl << "Decompressed Code:" << endl << "-----------------------"<<endl <<huffcodedMessage;
-	//cout << "size:" << huffcodedMessage.size() << endl;
 	readCompressedCode.close(); // close f stream
 	ofstream writeDecompressCode("decompressedCode.txt"); // write compressed message
 	writeDecompressCode << huffcodedMessage;

@@ -13,11 +13,13 @@
   <ItemGroup>
     <ClInclude Include="HuffmanTree.h" />
     <ClInclude Include="Rot13Encryption.h" />
+    <ClInclude Include="Vigenere.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HuffmanTree.cpp" />
     <ClCompile Include="Rot13Encryption.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Vigenere.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EE45B936-0071-4A3C-9CEB-9C3C0D3F45D6}</ProjectGuid>

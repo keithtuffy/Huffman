@@ -4,7 +4,7 @@
 #ifndef HUFFMANTREE_H
 
 
-//based on http://www.dreamincode.net/forums/blog/324/entry-3150-an-in-depth-look-at-huffman-encoding/
+
 #define HUFFMANTREE_H
 #include<queue>
 #include<deque>
@@ -12,7 +12,6 @@
 #include<string>
 #include <fstream>
 using namespace std;
-// x00102013
 class BinNode{
 	friend class BinHeap;
 	friend class CompareBinNode;
